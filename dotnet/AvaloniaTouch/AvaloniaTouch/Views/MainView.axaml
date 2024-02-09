@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AvaloniaTouch.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="272"
+             x:Class="AvaloniaTouch.Views.MainView"
+             x:DataType="vm:MainViewModel">
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <vm:MainViewModel />
+  </Design.DataContext>
+
+  <StackPanel Margin="20">
+    <TextBlock Margin="0 5" >Name:</TextBlock>
+    <TextBox Name="nameInput" Watermark="Enter your name"/>
+    <TextBlock Margin="0 5" >Password:</TextBlock>
+    <TextBox PasswordChar="*" Watermark="Enter your password"/>
+    <TextBlock Margin="0 15 0 5">Notes:</TextBlock>
+    <TextBox Height="50" AcceptsReturn="True" TextWrapping="Wrap"/>
+  </StackPanel>
+</UserControl>
