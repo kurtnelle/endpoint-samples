@@ -1,0 +1,23 @@
+﻿@page "/wifi"
+@inject Services.WiFiNetworkingService _wifiService
+
+<h3>WiFi Settings</h3>
+
+<h1>@_wifiService.Ssid</h1>
+<p>
+    <div class="row">
+        <div class="col-lg-2">MAC:</div><div class="col-lg-10"> @_wifiService.MACAddress</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">IP Address:</div><div class="col-lg-10"> @_wifiService.Address?.ToString()</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">Gateway:</div><div class="col-lg-10"> @_wifiService.Gateway?.ToString()</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">Dns Address:</div><div class="col-lg-10"> @_wifiService.DNS?.ToString()</div>
+    </div>
+</p>
+@code {
+
+}
