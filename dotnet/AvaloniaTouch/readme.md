@@ -2,13 +2,13 @@ This project is tested on Visual Studio 2022
 
 # Creating a new project
 - Create new project, select Avalonia C# project
-- Name the project
+- Name the project "AvaloniaTouch"
 - Select Desktop, click Next
 - Select Community Toolkit, click Next
 - Select Embedded Suport, click Create
-- Default template has wrong startup project, need to "set as startup project" which has Program.cs file
+- Default template has two projects and wrong startup project. Select the project AvaloniaTouch.Desktop and set as startup project
 
-# Optimiz csproj file
+# Change csproj file
 Open the csproj file, change <OutputType> from WinExe to Exe
 
 ```
@@ -23,7 +23,7 @@ Open the csproj file, change <OutputType> from WinExe to Exe
 
 # Change Program.cs
 
-Below is simple Program.cs to allow Display, touchscreen work on Endpoint
+Below is simple Program.cs to allow display, touchscreen work on Endpoint device
 ```
 public static int Main(string[] args)
 {
