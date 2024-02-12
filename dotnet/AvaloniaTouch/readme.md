@@ -1,15 +1,15 @@
 This project is tested on Visual Studio 2022
 
-# Creating a new project
-- Create new project, select Avalonia C# project
-- Name the project "AvaloniaTouch"
-- Select Desktop, click Next
-- Select Community Toolkit, click Next
-- Select Embedded Suport, click Create
-- Default template has two projects and wrong startup project. Select the project AvaloniaTouch.Desktop and set as startup project
+# Creating new project
+- Create new project, select Avalonia C# project.
+- Name the project "AvaloniaTouch".
+- Select Desktop, click Next.
+- Select Community Toolkit, click Next.
+- Select Embedded Suport, click Create.
+- Default template has two projects and wrong startup project. Select the project AvaloniaTouch.Desktop and set as startup project.
 
 # Change csproj file
-Open the csproj file, change <OutputType> from WinExe to Exe
+Open the csproj file, change <OutputType> from WinExe to Exe.
 
 ```
 <OutputType>Exe</OutputType>
@@ -23,7 +23,7 @@ Open the csproj file, change <OutputType> from WinExe to Exe
 
 # Change Program.cs
 
-Below is simple Program.cs to allow display, touchscreen work on Endpoint device
+Below is simple Program.cs to allow display, touchscreen work on Endpoint device:
 ```
 public static int Main(string[] args)
 {
