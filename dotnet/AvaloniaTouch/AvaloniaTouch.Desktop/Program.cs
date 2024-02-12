@@ -19,7 +19,7 @@ class Program
     // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
     // yet and stuff might break.
     [STAThread]
-    public static int Main(string[] argso)
+    public static int Main(string[] args)
     {
         var backlightPort = EPM815.Gpio.Pin.PD14 / 16;
         var backlightPin = EPM815.Gpio.Pin.PD14 % 16;
@@ -51,12 +51,10 @@ class Program
 
         var touch = new FT5xx6Controller(EPM815.I2c.I2c6, EPM815.Gpio.Pin.PF12);
 
-
         var input = new InputDevice();
         input.EnableOnscreenKeyboard(displayController);
 
         var builder = BuildAvaloniaApp();
-        var args = new string[] { "--fbdev" };
 
         touch.TouchDown += (a, b) =>
         {
@@ -68,22 +66,7 @@ class Program
             input.UpdateTouchPoint(b.X, b.Y, TouchEvent.Released);
         };
 
-       
-
-        if (args.Contains("--fbdev"))
-        {
-            SilenceConsole();
-
-                
-            return builder.StartLinuxFbDev(args, "/dev/fb0", 1, input);
-            
-        }
-
-
-
-
-
-        return builder.StartWithClassicDesktopLifetime(args);
+        return builder.StartLinuxFbDev(new string[] { "--fbdev" }, "/dev/fb0", 1, input);
     }
 
 
@@ -91,24 +74,10 @@ class Program
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
-            .WithInterFont()
-
-            .LogToTrace();
+            .WithInterFont();
 
 
 
-    private static void SilenceConsole()
-    {
-        new Thread(() =>
-        {
-            Console.CursorVisible = false;
-            while (true)
-            {
-                //Console.ReadKey(true);
 
-                Thread.Sleep(10000);
-            }
-        })
-        { IsBackground = true }.Start();
-    }
+    
 }
