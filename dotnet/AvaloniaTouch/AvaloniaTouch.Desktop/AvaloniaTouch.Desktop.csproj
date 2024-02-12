@@ -12,9 +12,9 @@
   <ItemGroup>
     <PackageReference Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
     <PackageReference Include="Avalonia.LinuxFramebuffer" Version="$(AvaloniaVersion)" />
-    <PackageReference Include="GHIElectronics.Endpoint.Devices.Display" Version="0.1.0-beta" />
-    <PackageReference Include="GHIElectronics.Endpoint.Drivers.Avalonia.Input" Version="0.0.1-alpha" />
-    <PackageReference Include="GHIElectronics.Endpoint.Drivers.FocalTech.FT5xx6" Version="0.1.0-beta" />
+    <PackageReference Include="GHIElectronics.Endpoint.Devices.Display" Version="0.1.1-beta" />
+    <PackageReference Include="GHIElectronics.Endpoint.Drivers.Avalonia.Input" Version="0.1.1-beta" />
+    <PackageReference Include="GHIElectronics.Endpoint.Drivers.FocalTech.FT5xx6" Version="0.1.1-beta" />
   </ItemGroup>
 
   <ItemGroup>
