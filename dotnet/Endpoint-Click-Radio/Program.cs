@@ -384,6 +384,8 @@ void Touch_TouchUp(FT5xx6Controller sender, FT5xx6Controller.TouchEventArgs e)
             volume = 0;
         radio.Volume = volume;
         Console.WriteLine("Volume " + volume.ToString());
+
+        //Added to fix volume bug in module
         if (volume <= 0)
             volume = -25;
 
