@@ -34,7 +34,11 @@ var preset8 = 106.7;
 //Initialize FM Click module
 var reset = EPM815.Gpio.Pin.PF4;
 var cs = EPM815.Gpio.Pin.PA14;
+FM_Click radio = new FM_Click(reset, cs);
 double currentStation = 100;
+int volume = 125;
+radio.Channel = currentStation;
+radio.Volume = volume;
 
 //Initialize TouchScreen
 var TouchResetPin = EPM815.Gpio.Pin.PF2 % 16;
@@ -70,10 +74,7 @@ var configuration = new FBDisplay.Configuration()
 var fbDisplay = new FBDisplay(configuration);
 var displayController = new DisplayController(fbDisplay);
 
-FM_Click radio = new FM_Click(reset, cs);
-int volume = 255;
-radio.Channel = currentStation;
-radio.Volume = volume;
+
 
 while (true) { 
 using (var screen = new SKCanvas(bitmap))
@@ -186,6 +187,56 @@ using (var screen = new SKCanvas(bitmap))
                 screen.DrawText(presetButton8, 376, 235, presetText);
         }
 
+        SKPaint volumeLineGreen = new SKPaint();
+        volumeLineGreen.Color = SKColors.Green;
+        volumeLineGreen.IsAntialias = true;
+        volumeLineGreen.StrokeWidth = 15;
+        volumeLineGreen.Style = SKPaintStyle.Fill;
+
+        SKPaint volumeLineRed = new SKPaint();
+        volumeLineRed.Color = SKColors.Red;
+        volumeLineRed.IsAntialias = true;
+        volumeLineRed.StrokeWidth = 15;
+        volumeLineRed.Style = SKPaintStyle.Fill;
+
+        for (int i = 82; i <= 215; i += 19)
+        {
+            screen.DrawLine(419, i, 453, i, volumeLineGreen);
+        }
+
+        switch (volume)
+        {
+            case 25:
+                screen.DrawLine(419, 215, 453, 215, volumeLineRed);
+                screen.DrawLine(419, 196, 453, 196, volumeLineRed);
+                break;
+            case 75:
+                screen.DrawLine(419, 215, 453, 215, volumeLineRed);
+                screen.DrawLine(419, 196, 453, 196, volumeLineRed);
+                screen.DrawLine(419, 177, 453, 177, volumeLineRed);
+                screen.DrawLine(419, 158, 453, 158, volumeLineRed);
+                break;
+            case 125:
+                screen.DrawLine(419, 215, 453, 215, volumeLineRed);
+                screen.DrawLine(419, 196, 453, 196, volumeLineRed);
+                screen.DrawLine(419, 177, 453, 177, volumeLineRed);
+                screen.DrawLine(419, 158, 453, 158, volumeLineRed);
+                screen.DrawLine(419, 139, 453, 139, volumeLineRed);
+                screen.DrawLine(419, 120, 453, 120, volumeLineRed);
+                break;
+            case 175:
+                screen.DrawLine(419, 215, 453, 215, volumeLineRed);
+                screen.DrawLine(419, 196, 453, 196, volumeLineRed);
+                screen.DrawLine(419, 177, 453, 177, volumeLineRed);
+                screen.DrawLine(419, 158, 453, 158, volumeLineRed);
+                screen.DrawLine(419, 139, 453, 139, volumeLineRed);
+                screen.DrawLine(419, 120, 453, 120, volumeLineRed);
+                screen.DrawLine(419, 101, 453, 101, volumeLineRed);
+                screen.DrawLine(419, 82, 453, 82, volumeLineRed);
+                break;
+
+        }
+
         //Flush to screen
         var data = bitmap.Copy(SKColorType.Rgb565).Bytes;
         displayController.Flush(data);
@@ -205,7 +256,7 @@ void Touch_TouchUp(FT5xx6Controller sender, FT5xx6Controller.TouchEventArgs e)
     { 
         currentStation = currentStation - 0.1;
         FM_Click radio = new FM_Click(reset, cs);
-        int volume = 255;
+        volume = volume;
         radio.Channel = currentStation;
         radio.Volume = volume;
 
@@ -213,11 +264,13 @@ void Touch_TouchUp(FT5xx6Controller sender, FT5xx6Controller.TouchEventArgs e)
         return;
     }
 
+
+
     if (e.X >= 340 && e.X <= 360 && e.Y >= 115 && e.Y <= 135)
     {
         currentStation = currentStation + 0.1;
         FM_Click radio = new FM_Click(reset, cs);
-        int volume = 255;
+        volume = volume;
         radio.Channel = currentStation;
         radio.Volume = volume;
         Console.WriteLine("Radio Station " + currentStation.ToString());
@@ -229,7 +282,6 @@ void Touch_TouchUp(FT5xx6Controller sender, FT5xx6Controller.TouchEventArgs e)
     {       
         FM_Click radio = new FM_Click(reset, cs);
         currentStation = preset1;
-        int volume = 255;
         radio.Channel = currentStation;
         radio.Volume = volume;
         Console.WriteLine("Radio Station " + currentStation.ToString());
@@ -241,7 +293,6 @@ void Touch_TouchUp(FT5xx6Controller sender, FT5xx6Controller.TouchEventArgs e)
     {
         FM_Click radio = new FM_Click(reset, cs);
         currentStation = preset2;
-        int volume = 255;
         radio.Channel = currentStation;  
         radio.Volume = volume;
         Console.WriteLine("Radio Station " + currentStation.ToString());
@@ -253,7 +304,6 @@ void Touch_TouchUp(FT5xx6Controller sender, FT5xx6Controller.TouchEventArgs e)
     {
         FM_Click radio = new FM_Click(reset, cs);
         currentStation = preset3;
-        int volume = 255;
         radio.Channel = currentStation;
         radio.Volume = volume;
         Console.WriteLine("Radio Station " + currentStation.ToString());
@@ -265,7 +315,6 @@ void Touch_TouchUp(FT5xx6Controller sender, FT5xx6Controller.TouchEventArgs e)
     {
         FM_Click radio = new FM_Click(reset, cs);
         currentStation = preset4;
-        int volume = 255;
         radio.Channel = currentStation;
         radio.Volume = volume;
         Console.WriteLine("Radio Station " + currentStation.ToString());
@@ -277,7 +326,6 @@ void Touch_TouchUp(FT5xx6Controller sender, FT5xx6Controller.TouchEventArgs e)
     {
         FM_Click radio = new FM_Click(reset, cs);
         currentStation = preset5;
-        int volume = 255;
         radio.Channel = currentStation;
         radio.Volume = volume;
         Console.WriteLine("Radio Station " + currentStation.ToString());
@@ -289,7 +337,6 @@ void Touch_TouchUp(FT5xx6Controller sender, FT5xx6Controller.TouchEventArgs e)
     {
         FM_Click radio = new FM_Click(reset, cs);
         currentStation = preset6;
-        int volume = 255;
         radio.Channel = currentStation;
         radio.Volume = volume;
         Console.WriteLine("Radio Station " + currentStation.ToString());
@@ -301,7 +348,6 @@ void Touch_TouchUp(FT5xx6Controller sender, FT5xx6Controller.TouchEventArgs e)
     {
         FM_Click radio = new FM_Click(reset, cs);
         currentStation = preset7;
-        int volume = 255;
         radio.Channel = currentStation;
         radio.Volume = volume;
         Console.WriteLine("Radio Station " + currentStation.ToString());
@@ -313,10 +359,34 @@ void Touch_TouchUp(FT5xx6Controller sender, FT5xx6Controller.TouchEventArgs e)
     {
         FM_Click radio = new FM_Click(reset, cs);
         currentStation = preset8;
-        int volume = 255;
         radio.Channel = currentStation;
         radio.Volume = volume;
         Console.WriteLine("Radio Station " + currentStation.ToString());
+        return;
+    }
+
+    //Volume Up
+    if (e.X >= 420 && e.X <= 450 && e.Y >= 45 && e.Y <= 65)
+    {
+        volume = volume + 50;
+        if (volume > 175)
+            volume = 175;
+        radio.Volume = volume;
+        Console.WriteLine("Volume " + volume.ToString());
+        return;
+    }
+
+    //Volume Down
+    if (e.X >= 420 && e.X <= 450 && e.Y >= 230 && e.Y <= 250)
+    {
+        volume = volume - 50;
+        if (volume < 0)
+            volume = 0;
+        radio.Volume = volume;
+        Console.WriteLine("Volume " + volume.ToString());
+        if (volume <= 0)
+            volume = -25;
+
         return;
     }
 
