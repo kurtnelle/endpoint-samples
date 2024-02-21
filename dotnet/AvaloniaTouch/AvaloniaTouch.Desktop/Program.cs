@@ -50,12 +50,11 @@ class Program
 
             var backlightPort = EPM815.Gpio.Pin.PD14 / 16;
             var backlightPin = EPM815.Gpio.Pin.PD14 % 16;
+            
+            var gpioBacklightController = new GpioController(PinNumberingScheme.Logical, new LibGpiodDriver(backlightPort));
 
-            var gpioDriver = new LibGpiodDriver(backlightPort);
-            var gpioController = new GpioController(PinNumberingScheme.Logical, gpioDriver);
-
-            gpioController.OpenPin(backlightPin, PinMode.Output);
-            gpioController.Write(backlightPin, PinValue.High); // low is on
+            gpioBacklightController.OpenPin(backlightPin, PinMode.Output);
+            gpioBacklightController.Write(backlightPin, PinValue.High); // low is on
 
 
             SKBitmap bitmap = new SKBitmap(fbDisplay.Width, fbDisplay.Height, SKImageInfo.PlatformColorType, SKAlphaType.Premul);
@@ -120,9 +119,21 @@ class Program
         })
         .Start();
 
-        EPM815.I2c.Initialize(EPM815.I2c.I2c6);
+        // Touch 
+        var resetTouchPin = EPM815.Gpio.Pin.PF2 % 16;
+        var resetTouchPort = EPM815.Gpio.Pin.PF2 / 16;
 
-        var touch = new FT5xx6Controller(EPM815.I2c.I2c6, EPM815.Gpio.Pin.PF12);
+        var gpioTouchController = new GpioController(PinNumberingScheme.Logical, new LibGpiodDriver(resetTouchPort));
+        gpioTouchController.OpenPin(resetTouchPin);
+        gpioTouchController.Write(resetTouchPin, PinValue.Low);
+
+        Thread.Sleep(100);
+
+        gpioTouchController.Write(resetTouchPin, PinValue.High);
+
+        EPM815.I2c.Initialize(EPM815.I2c.I2c5);
+
+        var touch = new FT5xx6Controller(EPM815.I2c.I2c5, EPM815.Gpio.Pin.PB11);
 
         var input = new InputDevice();
         input.EnableOnscreenKeyboard(displayController);
