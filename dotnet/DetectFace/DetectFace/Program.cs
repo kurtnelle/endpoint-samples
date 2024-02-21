@@ -69,7 +69,7 @@ namespace ConsoleApp10
 
             // OpenCV stub
             //https://github.com/opencv/opencv/tree/master/data/haarcascades            
-            var cascade = new CascadeClassifier(Directory.GetCurrentDirectory() + @"/haarcascade_frontalface_alt.xml");
+            var cascade = new CascadeClassifier( @"/root/.epdata/DetectFace/haarcascade_frontalface_alt.xml");
 
             var webcam = new Webcam();
 
