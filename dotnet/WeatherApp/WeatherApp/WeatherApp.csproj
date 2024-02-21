@@ -16,10 +16,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GHIElectronics.Endpoint.Devices.Display" Version="0.1.0-beta" />
-    <PackageReference Include="GHIElectronics.Endpoint.Devices.Network" Version="0.1.0-beta" />
-    <PackageReference Include="GHIElectronics.Endpoint.Devices.Rtc" Version="0.1.0-beta" />
-    <PackageReference Include="GHIElectronics.Endpoint.Drivers.FocalTech.FT5xx6" Version="0.1.0-beta" />
+    <PackageReference Include="GHIElectronics.Endpoint.Devices.Display" Version="0.1.2-beta" />
+    <PackageReference Include="GHIElectronics.Endpoint.Devices.Network" Version="0.1.2-beta" />
+    <PackageReference Include="GHIElectronics.Endpoint.Devices.Rtc" Version="0.1.2-beta" />
+    <PackageReference Include="GHIElectronics.Endpoint.Drivers.FocalTech.FT5xx6" Version="0.1.2-beta" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
