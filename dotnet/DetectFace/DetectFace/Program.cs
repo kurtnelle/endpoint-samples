@@ -73,10 +73,12 @@ namespace ConsoleApp10
 
             var webcam = new Webcam();
 
+            // Make sure the web-cam supports 320x240 resolution or change to resolution your web-cam supports
+            // Large resolution will slow down the speed.
             var setting = new CameraConfiguration()
             {
-                Width = 480,
-                Height = 272,
+                Width = 320,
+                Height = 240,
                 ImageFormat = Format.Jpeg,
             };
 
@@ -128,6 +130,7 @@ namespace ConsoleApp10
                         Cv2.CvtColor(srcImage, grayImage, ColorConversionCodes.BGRA2GRAY);
                         Cv2.EqualizeHist(grayImage, grayImage);
                        ;
+                        //detect face
                         var faces = cascade.DetectMultiScale(
                             image: grayImage,
                             scaleFactor: 1.1,
@@ -154,8 +157,10 @@ namespace ConsoleApp10
                 }
                
                 var data = bitmap.Copy(SKColorType.Rgb565).Bytes;
-  
+
+                
                 displayController.Flush(data);
+
 
                 Thread.Sleep(10);
             }
