@@ -1,12 +1,14 @@
-﻿using GHIElectronics.Endpoint.Core;
+﻿using System.Device.Gpio;
+using System.Device.Gpio.Drivers;
+using GHIElectronics.Endpoint.Core;
 using GHIElectronics.Endpoint.Devices.Camera;
 using GHIElectronics.Endpoint.Devices.Display;
 using GHIElectronics.Endpoint.Devices.UsbHost;
-using OpenCvSharp;
 using SkiaSharp;
-using System.Device.Gpio;
-using System.Device.Gpio.Drivers;
-namespace ConsoleApp10
+using DetectFace.Properties;
+using OpenCvSharp;
+
+namespace EndpointOpenCV
 {
     internal class Program
     {
@@ -71,8 +73,10 @@ namespace ConsoleApp10
             //https://github.com/opencv/opencv/tree/master/data/haarcascades            
             var cascade = new CascadeClassifier( @"/root/.epdata/DetectFace/haarcascade_frontalface_alt.xml");
 
-            var webcam = new Webcam();
 
+
+
+            var webcam = new Webcam();
             // Make sure the web-cam supports 320x240 resolution or change to resolution your web-cam supports
             // Large resolution will slow down the speed.
             var setting = new CameraConfiguration()
@@ -119,13 +123,24 @@ namespace ConsoleApp10
                 if (srcImage != null)
                 {
                     var skiaImg = SKBitmap.Decode(camData, info);
+                    var background = Resources.background;
+                    var backgroundInfo = new SKImageInfo(480, 272);
+                    var back_img = SKBitmap.Decode(background, backgroundInfo);
+                    canvas.DrawBitmap(back_img, 0, 0);
+
+                   
+                    var detect = Resources.detect;
+                    var detectInfo = new SKImageInfo(98, 98);
+                    var detect_img = SKBitmap.Decode(detect, detectInfo);
+                    
 
                     if (skiaImg != null)
                     {
 
-                        canvas.DrawBitmap(skiaImg, 0, 0);
+                        canvas.DrawBitmap(skiaImg, 10, 17);
   
                         var grayImage = new Mat();
+                        
 
                         Cv2.CvtColor(srcImage, grayImage, ColorConversionCodes.BGRA2GRAY);
                         Cv2.EqualizeHist(grayImage, grayImage);
@@ -145,12 +160,14 @@ namespace ConsoleApp10
                             {
                                 using (SKPaint paint = new SKPaint())
                                 {
-                                    paint.Color = SKColors.Blue;
+                                    paint.Color = SKColor.Parse("#FF0977aa");
                                     paint.IsAntialias = true;
                                     paint.StrokeWidth = 3;
                                     paint.Style = SKPaintStyle.Stroke;
-                                    canvas.DrawRect(faceRect.X, faceRect.Y, faceRect.Width, faceRect.Height, paint); //arguments are x position, y position, radius, and paint
+                                    canvas.DrawRect(faceRect.X+5, faceRect.Y, faceRect.Width+5, faceRect.Height+25, paint); //arguments are x position, y position, radius, and paint
                                 }
+                                canvas.DrawBitmap(detect_img, 360, 71);
+
                             }
                         }
                     }
@@ -160,7 +177,6 @@ namespace ConsoleApp10
 
                 
                 displayController.Flush(data);
-
 
                 Thread.Sleep(10);
             }

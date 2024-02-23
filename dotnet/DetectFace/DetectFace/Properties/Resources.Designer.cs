@@ -59,5 +59,25 @@ namespace DetectFace.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] background {
+            get {
+                object obj = ResourceManager.GetObject("background", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] detect {
+            get {
+                object obj = ResourceManager.GetObject("detect", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
