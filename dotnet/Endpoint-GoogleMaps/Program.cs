@@ -66,8 +66,8 @@ bool NetworkReady = false;
 var networkType = NetworkInterfaceType.WiFi;
 
 var networkSetting = new WiFiNetworkInterfaceSettings{
-    Ssid = "GHI",
-    Password = "ghi555wifi.",
+    Ssid = "YOUR SSID",
+    Password = "YOUR PASSWORD",
     DhcpEnable = true,
 };
 
