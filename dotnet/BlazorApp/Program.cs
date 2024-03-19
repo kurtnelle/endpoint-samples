@@ -2,11 +2,13 @@ using BlazorApp.Components;
 using BlazorApp.Services;
 using GHIElectronics.Endpoint.Devices.Network;
 using Iot.Device.Card.Ultralight;
+using System.Reflection;
 
+var assemblyName = Assembly.GetCallingAssembly().GetName().Name;
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions()
 {
     Args = args,
-    WebRootPath = "/root/.epdata/BlazorApp/wwwroot/"
+    WebRootPath = $"/root/.epdata/{assemblyName}/wwwroot/"
 });
 
 builder.WebHost.ConfigureKestrel((options) => {
